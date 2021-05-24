@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike Inventry</title>
+    <style>
+        *
+        {
+            margin:0px;
+            padding: 0px;
+        }
+        .container
+        {
+           display: grid;
+           grid-template-columns: 25% 75%;
+           
+        }
+
+        .container > div
+        {
+            border: 2px solid black;
+        }
+
+        .container > .firstDiv > .formDiv
+        {
+            margin-top: 30px;
+            padding: 35px;
+            
+        }
+
+        .container > .firstDiv > .formDiv > input
+        {
+            margin-bottom: 20px;
+            height: 50px;
+            box-sizing: border-box;
+            padding-left: 10px;
+            font-weight: bold;
+            box-shadow: 3px 3px 3px 3px gray;
+            outline: none;
+            border:none;
+        }
+
+        .container > .firstDiv > .formDiv > button
+        {
+           background: green;
+           height: 60px;
+           width: 100px;
+           border: none;
+           color: white;
+           font-size: 15px;
+           border-radius: 10px;
+           box-shadow: 3px 3px 3px rgb(128, 128, 128);
+        }
+
+
+
+
+
+        .container > .secondDiv > .grid
+        {
+             display: grid;
+             grid-template-columns: repeat(3,150px);
+             justify-content: space-evenly;
+             padding-top: 30px;
+        }
+
+        .container > .secondDiv > .grid > div
+        {
+            height: 200px;
+            border: 2px solid green;
+            margin-bottom: 20px;
+            box-shadow: 3px 3px 3px gold;
+        }
+
+        .container > .secondDiv > .grid > .boxClass
+        {
+          display: grid;
+          grid-template-columns:60px 60px;
+          justify-content: space-evenly;
+          align-items:flex-end;
+          font-weight: bold;
+          font-size: 25px;
+
+        }
+
+        .container > .secondDiv > .grid > div:hover
+        {
+           
+            box-shadow: 3px 3px 3px green;
+        }
+
+        .container > .secondDiv > .grid > .boxClass:hover
+        {
+          background:gold;
+        }
+
+        .container > .secondDiv > .grid > .boxClass > button
+        {
+           height: 40px;
+           margin-bottom: 10px;
+           color: white;
+           border:none;
+           border-radius: 10px;
+           box-shadow: 3px 3px 3px rgb(128, 128, 128);
+        }
+
+        .container > .secondDiv > .grid > .boxClass > .btn1
+        {
+          background:red;
+        }
+
+        .container > .secondDiv > .grid > .boxClass > .btn2
+        {
+          background:green;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+      <div class="firstDiv">
+          <div class="formDiv">
+              <input type="text" id = "name" placeholder="Name"/>
+              <input type="number" id ="price" placeholder="Price"/>
+              <input type="text" id = "des" placeholder="Description"/>
+              <input type="number" id="estD" placeholder="Estimated Delivery (ex: 3 Days)"/>
+              <p style="margin-bottom: 10px;" id="p-color">All fields Required*</p>
+              <button id="addbtn">Add Product</button>
+              
+
+          </div>
+      </div>
+      <div class="secondDiv">
+          <div class="grid" id="grid">
+
+          </div>
+      </div>
+    </div>
+</body>
+        <script>
+          var addbtn = document.getElementById("addbtn");
+          addbtn.addEventListener('click',additems);
+          var app = document.getElementById("grid");
+          app.innerHTML="";
+          var count = 1;
+         
+          function additems()
+          {
+            var name = document.getElementById("name").value;
+            var price = document.getElementById("price").value;
+            var des = document.getElementById("des").value;
+            var est = document.getElementById("estD").value;
+            var p = document.getElementById("p-color");
+            if(name!="" && price!="" && des!="" && est!="")
+            {
+                var div = document.createElement('div');
+                div.setAttribute('class',"boxClass");
+                div.setAttribute('id',`${count}`);
+                div.innerHTML=`<button class="btn1"onclick=remove(${count})>Remove</button>
+                <button  class="btn2" id=rm${count} onclick=update(rm${count})>Update (Rs.${price})</button>`;
+                app.appendChild(div);
+                p.style.color="black";
+                p.style.fontWeight="100";           
+            count++;
+
+            document.getElementById("name").value = "";
+            document.getElementById("price").value = "";
+            document.getElementById("des").value = "";
+            document.getElementById("estD").value = "";
+
+            }
+            else
+            {
+                
+                p.style.color="red";
+                p.style.fontWeight="bold";
+            }
+
+          }
+
+
+          function remove(id)
+          {
+             var value = document.getElementById(id);
+             value.remove();
+
+          }
+
+
+          function update(id)
+          {
+            var new_price = prompt("Enter new price");
+
+           id.innerHTML =`Update (Rs.${new_price})`;
+            //console.log(cell);
+            
+          }
+
+
+        </script>
+</html>
